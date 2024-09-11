@@ -2,6 +2,12 @@ pipeline {
     agent any
 
     stages {
+
+
+        stage('Test'){
+            echo
+        }
+
         stage('Hello') {
             steps {
                 echo 'Hello World'
@@ -26,6 +32,12 @@ pipeline {
                 sh 'make check || true' 
                 junit '**/target/*.xml' 
             }
+        }
+    }
+
+    post{
+        failure {
+            mail to: matthias@boldtitsolutions.de, subject: 'The pipeline failed :('
         }
     }
 }
